@@ -65,8 +65,7 @@ def tally(expr, test=lambda x:x):
                 D[test(i)] = 1           
     return [[E[k],v] for k,v in D.items()]
 
-#%%
-    
+
 def first(expr, defer=None):
     """
     returns the first item from the collection
@@ -97,24 +96,176 @@ def first(expr, defer=None):
         return expr[0]
     except IndexError:
         return defer
-        
+
 
 def last(expr, defer=None):
+    """
+    returns the last item from the collection
+
+    Parameters
+    ----------
+    expr : iterable
+        the list
+    defer : any type, optional
+        what is returned when nothing is provided in the iterable. The default is None.
+
+    Returns
+    -------
+    item
+        last item in the array
+
+    Examples
+    --------
+    >>> last(['a','b'])
+    'b'
+    
+    >>> first([])
+    None
+
+    """
     iter(expr)
     try:        
-        return expr[0]
+        return expr[-1]
     except IndexError:
         return defer
+        
+    
 
-def even_q(x):
-    return x%2==0
 
-def odd_q(x):
-    return x%2==1
+def even_q(expr):
+    """
+    Returns True if number is even else returns False
+
+    Parameters
+    ----------
+    expr : numeric
+        number to be tested
+
+    Returns
+    -------
+    bool
+        True if divisible by 2, False otherwise.
+
+    Examples
+    --------
+    >>> even_q(2)
+    True    
+
+    >>> even_q(1)
+    False
+    
+    >>> # a departure from wolfram, even_q works for floats 
+    >>> even_q(2.0)
+    True
+    
+    >>> # even_q works for non-integer numbers, returns false
+    >>> even_q(0.4)
+    False
+
+    """
+    assert float(expr)
+    return expr%2==0
+
+
+def odd_q(expr):
+    """
+    Returns True if number is odd else returns False
+
+    Parameters
+    ----------
+    expr : numeric
+        number to be tested
+
+    Returns
+    -------
+    bool
+        True if expr+1 is divisible by 2, False otherwise.
+
+    Examples
+    --------
+    >>> odd_q(1)
+    True    
+
+    >>> odd_q(2)
+    False
+    
+    >>> # a departure from wolfram, odd_q works for floats 
+    >>> odd_q(1.0)
+    True
+    
+    >>> # odd_q works for non-integer numbers, returns false
+    >>> odd_q(0.4)
+    False
+
+    """
+    assert float(expr)
+    return expr%2==1
+#%%
+
+
+def nest_while_list(f,expr,test,m=0,max_iter=None, n=0):
+    """
+    
+    repeatedly applies f to expr until test yields False
+
+    Parameters
+    ----------
+    f : function
+        function to apply each time.
+    expr : any
+        starting expression.
+    test : function
+        test to continue.
+    m : int, optional
+        Do the first m iterations even if Test is False. The default is 0.
+    max_iter : int, optional
+        iterates a maximum of max_iter number of times. The default is 1024.
+    n : int, optional
+        applies test n additional times after the completion. The default is 0.
+
+
+    Returns
+    -------
+    list
+        returns list of results for successive applications of f to expr
+        
+        
+    Examples
+    --------
+    
+    >>> nest_while_list(lambda x:x/2, 123456, wl.even_q)
+    [123456, 61728.0, 30864.0, 15432.0, 7716.0, 3858.0, 1929.0]
+
+    >>> nest_while_list(lambda x:x/2, 123456, wl.even_q, m=7)
+    [123456, 61728.0, 30864.0, 15432.0, 7716.0, 3858.0, 1929.0, 964.5]
+
+    >>> nest_while_list(lambda x:x/2, 123456, wl.even_q, m=7, n=1)
+    [123456, 61728.0, 30864.0, 15432.0, 7716.0, 3858.0, 1929.0, 964.5, 482.25]
+
+    """
+    L = [expr]
+    i = 0
+    if max_iter and m:
+        assert m < max_iter
+    while (test(expr) and (i < max_iter if max_iter else True)) or i<m:
+        expr = f(expr)
+        L.append(expr)
+        i += 1
+    if n>0:
+        for i in range(n):
+            expr = f(expr)
+            L.append(expr)
+    elif n<0:
+        L=L[:n]
+    return L
+
 
 
 
 #%%
+
+
+
     
 # counts
 
@@ -161,18 +312,6 @@ def odd_q(x):
 #         arg = fn(arg)
 #         end.append(arg)
 #     return end
-
-# def nest_while(arg,fn=lambda x:x,test= lambda x:x,max_iterations=1024,fail='Exception'):
-#     i = 0
-#     while not test(arg) and i < max_iterations:
-#         arg = fn(arg)
-#         i += 1
-#         if i == max_iterations:
-#             if fail =='Exception':
-#                 raise Exception('RecursionDepthError: maximum recursion depth reached')
-#             else:
-#                 return fail
-#     return arg
 
 # def nest_while_list(arg,fn=lambda x:x,test= lambda x:x,max_iterations=1024,fail='Exception'):
 #     i = 0
