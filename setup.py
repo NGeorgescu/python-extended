@@ -13,9 +13,9 @@ except ImportError:
 
 from setuptools import setup, find_packages
 
-exec(open('wolframtools/version.py').read()) # loads __version__
+exec(open('extended/version.py').read()) # loads __version__
 
-setup(name='wolframtools',
+setup(name='extended',
       version=__version__,
       url='https://github.com/NGeorgescu/' + 'wolframtools',
       author='NGeorgescu',
