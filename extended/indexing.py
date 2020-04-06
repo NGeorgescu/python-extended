@@ -11,7 +11,7 @@ def first(expr, defer=None):
 
     Returns
     -------
-    item
+    out : item
         first item in the array
 
     Examples
@@ -43,7 +43,7 @@ def last(expr, defer=None):
 
     Returns
     -------
-    item
+    out : item
         last item in the array
 
     Examples

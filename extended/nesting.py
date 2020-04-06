@@ -10,7 +10,7 @@ def nest_while_list(f,expr,test,m=1,max_iter=None, n=0):
     expr : any
         starting expression.
     test : function
-        test to continue.
+        test to continue applying f.
     m : int, optional
         if int: equivalent to [m,m]; if list: [m_min,m_last], Do the first 
         m_min iterations even if Test is False, and use last m_last as a list 
@@ -22,7 +22,7 @@ def nest_while_list(f,expr,test,m=1,max_iter=None, n=0):
 
     Returns
     -------
-    list
+    out : list
         returns list of results for successive applications of f to expr
         
     Examples
@@ -77,7 +77,7 @@ def nest_while(f,expr,test,m=1,max_iter=None, n=0):
     expr : any
         starting expression.
     test : function
-        test to continue.
+        test to continue applying f.
     m : int, optional
         if int: equivalent to [m,m]; if list: [m_min,m_last], Do the first 
         m_min iterations even if Test is False, and use last m_last as a list 
@@ -89,7 +89,7 @@ def nest_while(f,expr,test,m=1,max_iter=None, n=0):
 
     Returns
     -------
-    item
+    out : item
         returns results for successive applications of f to expr
         
     Examples

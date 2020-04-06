@@ -12,7 +12,7 @@ def tally(expr, test=lambda x:x):
     
     Returns
     -------
-    list
+    out : list
         list of lists with the items tallied up.  If you use a nested list,
         the items get returned as a tuple.  If you use a dictionary, you'll
         only get the keys.  
@@ -77,7 +77,7 @@ def counts(expr):
 
     Returns
     -------
-    dict
+    out : dict
         the keys are the items and the values are the counts
 
     >>> xt.counts(['a','a','b','a','c','b','a'])
@@ -118,7 +118,7 @@ def counts_by(expr, test=lambda x:x):
 
     Returns
     -------
-    dict
+    out: dict
         the keys are the items and the values are the counts
 
     >>> xt.counts_by(['a','a','b','a','c','b','a'])

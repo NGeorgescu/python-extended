@@ -1,5 +1,5 @@
 
-from .iterable import tally
+from .iterable import tally, counts, counts_by
 from .indexing import first, last
 from .numbertests import even_q, odd_q
 from .nesting import nest_while_list, nest_while
@@ -40,8 +40,6 @@ from .nesting import nest_while_list, nest_while
 # def gather_by(x, **kwargs):
 #     return list(group_by(x, **kwargs).values())
 
-# def counts_by(x, key=lambda x:x):
-#     return {k:len(v) for k,v in group_by(x,key=key).items()}
 
 # def rotate_right(input_list,n):
 #     input_list = list(input_list)

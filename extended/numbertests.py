@@ -10,27 +10,27 @@ def even_q(expr):
 
     Returns
     -------
-    bool
+    out : bool
         True if divisible by 2, False otherwise.
 
     Examples
     --------
-    >>> even_q(2)
+    >>> xt.even_q(2)
     True    
 
-    >>> even_q(1)
+    >>> xt.even_q(1)
     False
     
     >>> # a departure from wolfram, even_q works for floats 
-    >>> even_q(2.0)
+    >>> xt.even_q(2.0)
     True
     
     >>> # even_q works for non-integer numbers, returns false
-    >>> even_q(0.4)
+    >>> xt.even_q(0.4)
     False
     
     >>> # it even works on lists
-    >>>> even_q(range(5))
+    >>>> xt.even_q(range(5))
     [True, False, True, False, True]
     """
     try:
@@ -51,7 +51,7 @@ def odd_q(expr):
 
     Returns
     -------
-    bool
+    out : bool
         True if expr+1 is divisible by 2, False otherwise.
 
     Examples
