@@ -23,7 +23,6 @@ from .nesting import nest_while_list, nest_while
 # partition([1,2,3,4,5], up_to(2))
 #%%
     
-# counts
 
 # def group_by(x,key=None,return_fn=None):
 #     d = {}
