@@ -48,10 +48,10 @@ def last(expr, defer=None):
 
     Examples
     --------
-    >>> last(['a','b'])
+    >>> xt.last(['a','b'])
     'b'
     
-    >>> first([])
+    >>> xt.last([])
     None
 
     """
