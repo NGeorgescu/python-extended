@@ -82,23 +82,23 @@ def rotate_left(input_list,n=1):
     Examples
     --------
     
-    >>> rotate_left(list('abcde'),1)
+    >>> xt.rotate_left(list('abcde'),1)
     ['b', 'c', 'd', 'e', 'a']
 
-    >>> 
-    >>> rotate_left(list('abcde'),n=-1)
+    >>> #use negative numbers to rotate the other way
+    >>> xt.rotate_left(list('abcde'),n=-1)
     ['e', 'a', 'b', 'c', 'd']
     
-    >>> #
-    >>> rotate_left([['a','b'],['c','d'],['e','f']],[0,1])
+    >>> # you can also rotate along the secondary axis only
+    >>> xt.rotate_left([['a','b'],['c','d'],['e','f']],[0,1])
     [['b', 'a'], ['d', 'c'], ['f', 'e']]
 
     >>> # you can just rotate on a single axis as long as it's 
-    >>> rotate_left([['a','b'],['c','d'],['e','f']],1)
+    >>> xt.rotate_left([['a','b'],['c','d'],['e','f']],1)
     [['c', 'd'], ['e', 'f'], ['a', 'b']]
 
     >>> # is equivalent to
-    >>> rotate_left([['a','b'],['c','d'],['e','f']],[1,0])
+    >>> xt.rotate_left([['a','b'],['c','d'],['e','f']],[1,0])
     [['c', 'd'], ['e', 'f'], ['a', 'b']]
 
 
@@ -114,14 +114,47 @@ def rotate_left(input_list,n=1):
 
 
 
-# def rotate_right(input_list,n=1):
-#     input_list = list(input_list)
-#     n = -n
-#     if n ==0:
-#         return input_list
-#     else:
-#         if n<0:
-#             n = len(input_list)+n
-#         return input_list[n:]+input_list[:n]
+def rotate_right(input_list,n=1):
+    """
+    rotates the elements of the list to the right
+
+    Parameters
+    ----------
+    input_list : iterable
+        list of elements to be rotated
+    n : int or list, optional
+        number of spaces to be rotated. If a list, subsequent numbers rotate along
+        subsequent axes. The default is 1 unit on the principle axis of the list.
+
+    Returns
+    -------
+    out : list
+        returns the elements rotated right in the format of a list.
+
+    Examples
+    --------
+    
+    >>> xt.rotate_right(list('abcde'),1)
+    ['e', 'a', 'b', 'c', 'd']
+    
+    >>> xt.rotate_right(list('abcde'),-1)
+    ['b', 'c', 'd', 'e', 'a']
+
+    >>> # you can also rotate along the secondary axis only
+    >>> xt.rotate_right([['a','b'],['c','d'],['e','f']],[0,1])
+    [['b', 'a'], ['d', 'c'], ['f', 'e']]
+
+    >>> # you can just rotate on a single axis as long as it's 
+    >>> xt.rotate_right([['a','b'],['c','d'],['e','f']],-1)
+    [['c', 'd'], ['e', 'f'], ['a', 'b']]
+
+    >>> # is equivalent to
+    >>> xt.rotate_right([['a','b'],['c','d'],['e','f']],[-1,0])
+    [['c', 'd'], ['e', 'f'], ['a', 'b']]
 
 
+    """
+
+    try: iter(n)
+    except: n = [n]
+    return rotate_left(input_list, [-i for i in n])

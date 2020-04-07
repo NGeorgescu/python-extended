@@ -1,6 +1,6 @@
 
 from .iterable import tally, counts, counts_by
-from .indexing import first, last
+from .indexing import first, last, rotate_left, rotate_right
 from .numbertests import even_q, odd_q
 from .nesting import nest_while_list, nest_while
 
@@ -40,19 +40,6 @@ from .nesting import nest_while_list, nest_while
 #     return list(group_by(x, **kwargs).values())
 
 
-# def rotate_right(input_list,n):
-#     input_list = list(input_list)
-#     n = -n
-#     if n ==0:
-#         return input_list
-#     else:
-#         if n<0:
-#             n = len(input_list)+n
-#         return input_list[n:]+input_list[:n]
-
-# def rotate_left(input_list,n):
-#     return rotate_right(input_list,-n)
-            
 # def nest(arg,n_times,fn=lambda x:x):
 #     for n in range(n_times):
 #         arg = fn(arg)
