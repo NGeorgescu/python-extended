@@ -103,3 +103,85 @@ def nest_while(f,expr,test,m=1,max_iter=None, n=0):
 
     """
     return nest_while_list(f,expr,test,m=0,max_iter=None, n=0)[-1]
+
+
+
+
+def nest(f, expr, n):
+    """
+    returns the value of f applied to expr n times
+
+    Parameters
+    ----------
+    f : function
+        function to be applied.
+    expr : any
+        expression f is to be applied to.
+    n : int
+        number of times.
+
+    Returns
+    -------
+    expr : any
+        result of f(f(f(....expr ...))) nested n deep
+
+    Examples
+    --------
+    >>> xt.nest(lambda x: x/10, 123456, 4)
+    12.3456
+
+    >>> xt.nest(xt.first, [['a','b'],['c','d']], 2)
+    'a'
+    """
+    for i in range(n):
+        expr = f(expr)
+    return expr
+
+            
+def nest_list(f, expr, n):
+    """
+    returns the list of results of applying f to expr n times
+
+    Parameters
+    ----------
+    f : function
+        function to be applied.
+    expr : any
+        what function is to be applied to.
+    n : int
+        number of times f is to be applied.
+
+    Returns
+    -------
+    out : list
+        returns [f(expr), f(f(expr)), f(f(f(expr))), ...]
+
+    Examples
+    --------
+    
+    >>> xt.nest_list(lambda x:x//2, 1024, 10)
+    [512, 256, 128, 64, 32, 16, 8, 4, 2, 1]
+    
+    >>> xt.nest_list(lambda x:x[0], [['a','b'],['c','d']], 2)
+    [['a', 'b'], 'a']
+
+    """
+    end = []
+    for i in range(n):
+        expr = f(expr)
+        end.append(expr)
+    return end
+
+
+
+
+
+
+
+
+
+
+
+
+
+
