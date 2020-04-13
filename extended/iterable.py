@@ -56,14 +56,14 @@ def tally(expr, test=lambda x:x):
         except:
             pass
         else:
-            i = tuple(i)
+            if not isinstance(i,str):
+                i = tuple(i)
         try:
             D[test(i)]+=1
         except KeyError:
             E[test(i)] = i
             D[test(i)] = 1           
     return [[E[k],v] for k,v in D.items()]
-
 
 
 def counts(expr):
