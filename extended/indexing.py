@@ -1,3 +1,5 @@
+from .classes import up_to
+
 def first(expr, defer=None):
     """
     returns the first item from the collection
@@ -160,56 +162,58 @@ def rotate_right(input_list,n=1):
     return rotate_left(input_list, [-i for i in n])
 
 
-#%%
+#def transpose(arr):
+#    return [[i[j] for i in arr] for j in range(max([len(i) for i in arr]))]
 
 
+def partition(expr,n,d=None,k=None,x=None):
+    """
+    Cuts lists into n-sized pieces
 
+    Parameters
+    ----------
+    expr : iterable
+        list to be partitioned
+    n : int or list
+        distance along which to be partitioned
+    d : int or list, optional
+        offset at which each partition should take place. The default is d=n.
+    k : TYPE, list
+        Padding length: Not implemented yet. The default is None.
+    x : TYPE, any
+        Padded unit: Not implemented yet. The default is None.
 
-# def transpose(arr):
-#     return [[i[j] for i in arr] for j in range(max([len(i) for i in arr]))]
+    Returns
+    -------
+    list
+        list of items partitioned in the manner described.
 
-
-# def flatten
-
-# def partition(arr,n):
-#     if isinstance(n,up_to):
-#         return [arr[n*i:n*i+n] for i in range(int(len(arr) / n) + (len(arr) % n > 0))]
-#     else:
-#         return [arr[n*i:n*i+n] for i in range(len(arr)//n)]
-
-# def partition(arr,n,d=None):
-#     if d is None: d=n    
-#     if isinstance(n,up_to): finish = len(arr)
-#     else: finish = len(arr)//n*n    
-#     return [arr[i:i+n] for i in range(0,finish,d)]
-
-
-#%%
-
-# class up_to(int):
-#     pass
-
-
-# def partition(expr,n,d=None,k=None,x=None):
-#     # print(expr,n,d)
-#     if d is None: d=n
-#     try: iter(n)
-#     except: 
-#         n,d = [[n],[d]]
-#     if isinstance(n[0],up_to): 
-#         finish = len(expr)
-#     else: 
-#         finish = len(expr)//n[0]*n[0] 
-
-#     if len(n)==1:
-#         return [expr[i:i+n[0]] for i in range(0,finish,d[0])]
-#     else:
-#         expr = [expr[i:i+n[0]] for i in range(0,finish,d[0])]
-#         return [partition(expr[i:i+n[0]],n[1:],d[1:],k=k,x=x) for i in expr]
+    Examples
+    --------
     
     
+
+    """
+
+    if k is not None: raise Exception('k not implemented yet')
+    if x is not None: raise Exception('x not implemented yet')    
+    if d is None: d=n
+    def itera(x):
+        try: iter(x)
+        except: return False
+        else: return True
+    if itera(n) and not itera(d): d = [d for i in range(len(n))]
+    if itera(d) and not itera(n): n = [n for i in range(len(d))]
+    if not itera(d) and not itera(n): n,d = [[n],[d]]
+
+    if isinstance(n[0],up_to): 
+        finish = len(expr)
+    else: 
+        finish = len(expr)-n[0]+1
+    if len(n)==1:
+        return [expr[i:i+n[0]] for i in range(0,finish,d[0])]
+    else:
+        import warnings
+        warnings.warn('*other* languages rearrange partitioned elements inconsistent with xt.partition()')
+        return [[partition(j,n[1:],d[1:]) for j in expr[i:i+n[0]]] for i in range(0,finish,d[0])]
         
-# partition(
-# partition(list('abcdefghi'),3)
-# ,2,1)
-
