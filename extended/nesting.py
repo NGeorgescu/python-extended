@@ -102,7 +102,7 @@ def nest_while(f,expr,test,m=1,max_iter=None, n=0):
     482.25
 
     """
-    return nest_while_list(f,expr,test,m=0,max_iter=None, n=0)[-1]
+    return nest_while_list(f,expr,test,m=m,max_iter=max_iter, n=n)[-1]
 
 
 
