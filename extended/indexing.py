@@ -115,7 +115,6 @@ def rotate_left(input_list,n=1):
     return input_list[n[0]:]+input_list[:n[0]]
 
 
-
 def rotate_right(input_list,n=1):
     """
     rotates the elements of the list to the right
@@ -162,10 +161,6 @@ def rotate_right(input_list,n=1):
     return rotate_left(input_list, [-i for i in n])
 
 
-#def transpose(arr):
-#    return [[i[j] for i in arr] for j in range(max([len(i) for i in arr]))]
-
-
 def partition(expr,n,d=None,k=None,x=None):
     """
     Cuts lists into n-sized pieces
@@ -190,8 +185,16 @@ def partition(expr,n,d=None,k=None,x=None):
 
     Examples
     --------
+    >>> xt.partition(list('abcde'),3)
+    [['a', 'b', 'c']]
     
+    >>>  xt.partition(list('abcde'),xt.up_to(3))
+    [['a', 'b', 'c'], ['d', 'e']]
+
+    >>> xt.partition(list('abcde'),3,1)
+    [['a', 'b', 'c'], ['b', 'c', 'd'], ['c', 'd', 'e']]
     
+
 
     """
 
@@ -214,6 +217,6 @@ def partition(expr,n,d=None,k=None,x=None):
         return [expr[i:i+n[0]] for i in range(0,finish,d[0])]
     else:
         import warnings
-        warnings.warn('*other* languages rearrange partitioned elements inconsistent with xt.partition()')
+        warnings.warn('*other* languages rearrange partitioned elements inconsistent with xt.partition().  This may be fixed in a future version.')
         return [[partition(j,n[1:],d[1:]) for j in expr[i:i+n[0]]] for i in range(0,finish,d[0])]
-        
+

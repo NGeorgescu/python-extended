@@ -105,8 +105,6 @@ def nest_while(f,expr,test,m=1,max_iter=None, n=0):
     return nest_while_list(f,expr,test,m=m,max_iter=max_iter, n=n)[-1]
 
 
-
-
 def nest(f, expr, n):
     """
     returns the value of f applied to expr n times
