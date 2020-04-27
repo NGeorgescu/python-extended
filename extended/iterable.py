@@ -153,3 +153,60 @@ def counts_by(expr, test=lambda x:x):
     return {k:v for k,v in tally(expr, test=test)}
     
 
+
+def group_by(expr, test=lambda x:x, reduce =lambda x:x):
+    """
+    groups the items in the list based upon the keys
+
+    Parameters
+    ----------
+    expr : iterable
+        list of items to be grouped by
+    test : function or dict, optional
+        fn to apply to each item to tell if they should be grouped together. if
+        dict, then it's that function and the key is the function to be applied
+        to each member of the output
+    reduce: function, optional
+        function to apply to the final lists 
+
+    Returns
+    -------
+    dict
+        keys of the groupings and the items from the original list to be together
+
+    Examples
+    --------
+    
+    >>> xt.group_by(['a1','b2','c3','a2','b1','c1'],test = xt.first)
+    {'a': ['a1', 'a2'], 'b': ['b2', 'b1'], 'c': ['c3', 'c1']}
+    
+    >>> xt.group_by(['a1','b2','c3','a2','b1','c1'],test = {xt.first:xt.last})
+    {'a': ['1', '2'], 'b': ['2', '1'], 'c': ['3', '1']}
+    
+    >>> xt.group_by(['a1','b2','c3','a2','b1','c1'],test = {xt.first:xt.last},
+    >>>        reduce = lambda x:''.join(x))
+    {'a': '12', 'b': '21', 'c': '31'}
+
+    """
+    D = {}
+    if isinstance(test, dict):
+        test, final = list(test.items())[0]
+    else:
+        assert callable(test)
+        final = lambda x:x
+    for i in expr:
+        try:
+            iter(i)
+        except:
+            pass
+        else:
+            if not isinstance(i,str):
+                i = tuple(i)
+        try:
+            D[test(i)] += [final(i)]
+        except KeyError:
+            D[test(i)] = [final(i)]           
+    return {k:reduce(v) for k,v in D.items()}
+
+
+
