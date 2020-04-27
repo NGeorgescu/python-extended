@@ -209,4 +209,40 @@ def group_by(expr, test=lambda x:x, reduce =lambda x:x):
     return {k:reduce(v) for k,v in D.items()}
 
 
+def gather_by(expr, test = lambda x: x):
+    """
+    gathers the items in the list by the tests, which can be nested    
+
+    Parameters
+    ----------
+    expr : iterable
+        list of things to be gathered
+    test : function or list, optional
+        the test (or for nesting, tests) that should be applied to gather at
+        each level
+
+    Returns
+    -------
+    list
+        list (or list of lists) gathered at each level by the test(s)
+
+    Examples
+    --------
+
+    >>> xt.gather_by(['a1','b2','a1','a2','b1','b2'],test = xt.first)
+    [['a1', 'a1', 'a2'], ['b2', 'b1', 'b2']]
+    
+    >>> xt.gather_by(['a1','b2','a1','a2','b1','b2'],test = [xt.first,xt.last])
+    [[['a1', 'a1'], ['a2']], [['b2', 'b2'], ['b1']]]
+
+    """
+    try: iter(test)
+    except: test = [test]
+    
+    if len(test) == 1:
+        return list(group_by(expr,test[0]).values())
+    else:
+        return [gather_by(i,test[1:]) for i in list(group_by(expr,test[0]).values())]
+
+
 
