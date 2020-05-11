@@ -1,4 +1,3 @@
-
 def even_q(expr):
     """
     Returns True if number is even else returns False

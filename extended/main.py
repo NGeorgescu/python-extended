@@ -6,12 +6,3 @@ from .nesting import nest_while_list, nest_while, nest, nest_list
 from .classes import up_to, sow_reap
 from .comprehensions import printr, check
 
-
-#%%
-    
-
-
-
-# def delete_duplicates(x):
-#     return list(group_by(x,key=lambda x:x).keys())
-

@@ -98,12 +98,47 @@ def nest_while(f,expr,test,m=1,max_iter=None, n=0):
     >>> xt.nest_while(lambda x:x/2, 123456, xt.even_q)
     1929.0
 
-    >>> xt.nest_while_list(lambda x:x/2, 123456, xt.even_q, m=[7,1], n=1)
+    >>> xt.nest_while(lambda x:x/2, 123456, xt.even_q, m=[7,1], n=1)
     482.25
 
     """
-    return nest_while_list(f,expr,test,m=m,max_iter=max_iter, n=n)[-1]
-
+    L = [expr]
+    i = 0
+    try:
+        iter(m)
+    except:
+        o=m
+    else:
+        m,o = m
+    finally:
+        assert isinstance(m,int)
+    #check if we need to do the list in the first place
+    if m==1 and o==1 and n==0:
+        while (test(expr) and (i < max_iter if max_iter else True)) or i<m:
+            expr = f(expr)
+            i += 1
+        return expr
+    else:
+        #you need the max iter to be larger or equal to m (minimum iterations)
+        if max_iter and m:
+            assert m <= max_iter
+        #the main loop
+        while (test(*L[-o:]) and
+               (i < max_iter if max_iter else True)) or i<m:
+            expr = f(expr)
+            L.append(expr)
+            L=L[min([o,n,-1])-1:]
+            i += 1
+        #if you need additional looping
+        if n>0:
+            for i in range(n):
+                expr = f(expr)
+                L.append(expr)
+                L=L[len(L)+min([o,n,-1])-1:]
+        if n<0:
+            return L[n-1]
+        else:
+            return L[-1]
 
 def nest(f, expr, n):
     """
